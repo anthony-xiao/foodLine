@@ -46,7 +46,7 @@ const restaurantCustomerQueue = {
 
 export const createData = () => Realm.open({schema: [restaurants, customers, queue, restaurantCustomerQueue]})
   .then(() => {
-    console.log(Realm.defaultPath)
     resolve()
   })
   .catch(err => console.error(err))
+

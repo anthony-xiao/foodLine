@@ -1,3 +1,5 @@
+/* esliRealm, { schemaVersion }sable no-console */
+
 import Realm from 'realm'
 import {resolve} from 'rsvp'
 
@@ -26,10 +28,11 @@ const queue = {
   primaryKey: 'id',
   properties: {
     id: 'int',
-    name: 'string',
     restaurant_id: 'int',
     total_queue: 'int',
-    currrent_number: 'int'
+    currrent_number: 'int',
+    open_time: 'date',
+    close_time: 'date'
   }}
 
 const restaurantCustomerQueue = {
@@ -44,9 +47,24 @@ const restaurantCustomerQueue = {
     missed: 'bool'
   }}
 
-export const createData = () => Realm.open({schema: [restaurants, customers, queue, restaurantCustomerQueue]})
+export const migrateData = () => Realm.open({
+  schema: [queue],
+  migration: (oldRealm, newRealm) => {
+    Realm.delete(oldRealm.objects('queue'))
+  }
+})
   .then(() => {
     resolve()
   })
   .catch(err => console.error(err))
 
+export const createData = () => Realm.open({
+  schema: [restaurants, customers, queue, restaurantCustomerQueue],
+  migration: (oldRealm, newRealm) => {
+    Realm.delete(oldRealm.objects('queue'))
+  }
+})
+  .then(() => {
+    resolve()
+  })
+  .catch(err => console.error(err))

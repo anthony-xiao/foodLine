@@ -1,6 +1,7 @@
 import Realm from 'realm'
+import {resolve} from 'rsvp'
 
-let restaurants = {
+const restaurants = {
   name: 'restaurants',
   primaryKey: 'id',
   properties: {
@@ -10,7 +11,7 @@ let restaurants = {
     qr_code: 'string'
   }}
 
-let customers = {
+const customers = {
   name: 'customers',
   primaryKey: 'id',
   properties: {
@@ -20,7 +21,7 @@ let customers = {
     hash: 'string'
   }}
 
-let queue = {
+const queue = {
   name: 'queue',
   primaryKey: 'id',
   properties: {
@@ -31,7 +32,7 @@ let queue = {
     currrent_number: 'int'
   }}
 
-let restaurantCustomerQueue = {
+const restaurantCustomerQueue = {
   name: 'restaurant_customer_queue',
   primaryKey: 'id',
   properties: {
@@ -43,7 +44,9 @@ let restaurantCustomerQueue = {
     missed: 'bool'
   }}
 
-Realm.open({
-  path: 
-  schema: [restaurants, customers, queue, restaurantCustomerQueue]})
-
+export const createData = () => Realm.open({schema: [restaurants, customers, queue, restaurantCustomerQueue]})
+  .then(() => {
+    console.log(Realm.defaultPath)
+    resolve()
+  })
+  .catch(err => console.error(err))

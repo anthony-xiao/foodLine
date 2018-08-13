@@ -1,4 +1,4 @@
-/* esliRealm, { schemaVersion }sable no-console */
+/* eslint-disable no-console */
 
 import Realm from 'realm'
 import {resolve} from 'rsvp'
@@ -50,7 +50,7 @@ const restaurantCustomerQueue = {
 export const migrateData = () => Realm.open({
   schema: [queue],
   migration: (oldRealm, newRealm) => {
-    Realm.delete(oldRealm.objects('queue'))
+    Realm.delete(oldRealm.objects('name'))
   }
 })
   .then(() => {
@@ -60,11 +60,12 @@ export const migrateData = () => Realm.open({
 
 export const createData = () => Realm.open({
   schema: [restaurants, customers, queue, restaurantCustomerQueue],
-  migration: (oldRealm, newRealm) => {
-    Realm.delete(oldRealm.objects('queue'))
-  }
+  schemaVersion: 1
 })
   .then(() => {
+    console.log(Realm.defaultPath)
     resolve()
   })
   .catch(err => console.error(err))
+
+export const deleteAllData = () => Realm.deleteAll()

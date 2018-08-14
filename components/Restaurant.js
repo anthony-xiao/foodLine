@@ -1,19 +1,30 @@
 import React from 'react'
 import {Text, View} from 'react-native'
 import styles from '../styles'
-import {createData} from '../db/util'
 import {latestQueue} from '../db/restaurant'
 
 class Restaurant extends React.Component {
-  componentDidMount () {
-    createData()
+  constructor (props) {
+    super(props)
+    this.state = {
+      currentNum: 0,
+      totalNum: 0
+    }
   }
+  componentDidMount () {
+    latestQueue(1)
+      .then(num => {
+        this.setState({
+          currentNum: num
+        })
+      })
+  }
+
   render () {
-    console.log(latestQueue(1))
     return (
       <View style={styles.container}>
-        <Text>Current Number: 1</Text>
-        <Text>Total in Queue: 8</Text>
+        <Text>Current Number: {this.state.currentNum}</Text>
+        <Text>Total in Queue: {this.state.totalNum}</Text>
       </View>
     )
   }

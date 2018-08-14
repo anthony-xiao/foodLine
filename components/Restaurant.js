@@ -1,7 +1,8 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import {Text, View} from 'react-native'
 import styles from '../styles'
-import {latestQueue} from '../db/restaurant'
+import {getCurrentQueueNumber} from '../actions/currentQueueNum'
 
 class Restaurant extends React.Component {
   constructor (props) {
@@ -12,21 +13,23 @@ class Restaurant extends React.Component {
     }
   }
   componentDidMount () {
-    latestQueue(1)
-      .then(num => {
-        this.setState({
-          currentNum: num
-        })
-      })
+    this.props.dispatch(getCurrentQueueNumber(1))
   }
 
   render () {
     return (
       <View style={styles.container}>
-        <Text>Current Number: {this.state.currentNum}</Text>
+        <Text>Current Number: {this.props.currentQueueNum}</Text>
         <Text>Total in Queue: {this.state.totalNum}</Text>
       </View>
     )
   }
 }
-export default Restaurant
+
+const mapStateToProps = (state) => {
+  return {
+    currentQueueNum: state.currentQueueNum
+  }
+}
+
+export default connect(mapStateToProps)(Restaurant)

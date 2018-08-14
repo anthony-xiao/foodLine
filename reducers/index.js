@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux'
-import getMyNumber from './getMyNumber'
+import currentQueueNum from './currentQueueNum'
 
 export default combineReducers({
-  getMyNumber
+  currentQueueNum
 })

@@ -1,5 +1,5 @@
 import {showError} from './error'
-import currentQueue from '../db/restaurant'
+import {currentQueue} from '../db/restaurant'
 
 export const RECEIVE_CURRENT_QUEUE_NUMBER = 'RECEIVE_CURRENT_QUEUE_NUMBER'
 
@@ -13,10 +13,11 @@ export const receiveCurrentQueueNumber = (num) => {
 export function getCurrentQueueNumber (id) {
   return (dispatch) => {
     currentQueue(id)
-    .then(num => {
-      dispatch(receiveCurrentQueueNumber(num))
-    })
-    .catch(() => {
-      dispatch(showError('An unexpected error has occurred'))
-    })
+      .then(num => {
+        dispatch(receiveCurrentQueueNumber(num))
+      })
+      .catch(() => {
+        dispatch(showError('An unexpected error has occurred'))
+      })
+  }
 }

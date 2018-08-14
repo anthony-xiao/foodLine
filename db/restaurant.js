@@ -4,7 +4,7 @@ import Realm from 'realm'
 import {databaseOption} from './util'
 
 // querying the current number of the latest queue for a specific restaurant
-export const currentQue = id => Realm.open(databaseOption)
+export const currentQueue = id => Realm.open(databaseOption)
   .then(realm => {
     const queue = realm.objects('queue').filtered(`restaurant_id == ${id}`)
     const restaurantQueueIds = queue.map(line => {

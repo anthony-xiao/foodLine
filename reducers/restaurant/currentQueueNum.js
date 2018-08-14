@@ -1,4 +1,4 @@
-import {RECEIVE_CURRENT_QUEUE_NUMBER} from '../actions/currentQueueNum'
+import {RECEIVE_CURRENT_QUEUE_NUMBER} from '../../actions/restaurant/currentQueueNum'
 
 const currentQueueNumber = (state = 0, action) => {
   switch (action.type) {

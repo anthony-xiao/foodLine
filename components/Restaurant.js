@@ -2,7 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Text, View} from 'react-native'
 import styles from '../styles'
-import {getCurrentQueueNumber} from '../actions/currentQueueNum'
+import {getCurrentQueueNumber} from '../actions/restaurant/currentQueueNum'
+import {totalQueue} from '../db/restaurant'
 
 class Restaurant extends React.Component {
   constructor (props) {
@@ -13,6 +14,7 @@ class Restaurant extends React.Component {
     }
   }
   componentDidMount () {
+    totalQueue(1)
     this.props.dispatch(getCurrentQueueNumber(1))
   }
 

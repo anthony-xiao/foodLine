@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux'
-import currentQueueNum from './currentQueueNum'
+import currentQueueNum from './restaurant/currentQueueNum'
 
 export default combineReducers({
   currentQueueNum

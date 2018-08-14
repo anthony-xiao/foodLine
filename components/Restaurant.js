@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Text, View} from 'react-native'
 import styles from '../styles'
 import {getCurrentQueueNumber} from '../actions/restaurant/currentQueueNum'
-import {totalQueue} from '../db/restaurant'
+import {getTotalInQueueNumber} from '../actions/restaurant/totalInQueue'
 
 class Restaurant extends React.Component {
   constructor (props) {
@@ -14,15 +14,15 @@ class Restaurant extends React.Component {
     }
   }
   componentDidMount () {
-    totalQueue(1)
     this.props.dispatch(getCurrentQueueNumber(1))
+    this.props.dispatch(getTotalInQueueNumber(1))
   }
 
   render () {
     return (
       <View style={styles.container}>
         <Text>Current Number: {this.props.currentQueueNum}</Text>
-        <Text>Total in Queue: {this.state.totalNum}</Text>
+        <Text>Total in Queue: {this.props.totalInQueue}</Text>
       </View>
     )
   }
@@ -30,7 +30,8 @@ class Restaurant extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    currentQueueNum: state.currentQueueNum
+    currentQueueNum: state.currentQueueNum,
+    totalInQueue: state.totalInQueue
   }
 }
 

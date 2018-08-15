@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Text, View} from 'react-native'
+import {Text, View, TouchableOpacity} from 'react-native'
 import styles from '../styles'
 import {getCurrentQueueNumber} from '../actions/restaurant/currentQueueNum'
 import {getTotalInQueueNumber} from '../actions/restaurant/totalInQueue'
@@ -23,6 +23,9 @@ class Restaurant extends React.Component {
       <View style={styles.container}>
         <Text>Current Number: {this.props.currentQueueNum}</Text>
         <Text>Total in Queue: {this.props.totalInQueue}</Text>
+        <TouchableOpacity>
+          <Text>Next Number</Text>
+        </TouchableOpacity>
       </View>
     )
   }

@@ -11,10 +11,9 @@ export const currentQueue = id => Realm.open(databaseOption)
       return line.id
     })
     const maxId = Math.max(...restaurantQueueIds)
-    const currentQue = realm.objects('queue').find(restaurantQueue => {
-      return restaurantQueue.id === maxId
-    })
-    return currentQue.currrent_number
+    const currentQue = realm.objects('restaurant_customer_queue').filtered('dinning == false' && 'missed === false' && `queue_id == ${maxId}`)
+    console.log(currentQue)
+    // return currentQue.length
   })
   .catch(err => console.error(err))
 
@@ -25,10 +24,8 @@ export const totalQueue = id => Realm.open(databaseOption)
       return line.id
     })
     const maxId = Math.max(...restaurantQueueIds)
-    const currentQue = realm.objects('queue').find(restaurantQueue => {
-      return restaurantQueue.id === maxId
-    })
-    return (currentQue.total_queue - currentQue.currrent_number + 1)
+    const currentQue = realm.objects('restaurant_customer_queue').filtered(`dinning == false && missed == false && queue_id == ${maxId}`)
+    return currentQue.length
   })
   .catch(err => console.error(err))
 

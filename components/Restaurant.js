@@ -24,10 +24,9 @@ class Restaurant extends React.Component {
   addCustomer () {
     const newCustomer = {
       queue_id: 6,
-      customer_id: 1,
-      queue_number: 2
+      customer_id: 1
     }
-    addRestaurantCustomerQueue(newCustomer)
+    addRestaurantCustomerQueue(this.state.restaurantId, newCustomer)
   }
 
   render () {

@@ -31,3 +31,12 @@ export const totalQueue = id => Realm.open(databaseOption)
     return (currentQue.total_queue - currentQue.currrent_number + 1)
   })
   .catch(err => console.error(err))
+
+export const addRestaurantCustomerQueue = newCustomer => Realm.open(databaseOption)
+  .then(realm => {
+    realm.write(() => {
+      realm.create()
+    }
+
+    )
+  })

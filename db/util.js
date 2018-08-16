@@ -29,8 +29,6 @@ const queue = {
   properties: {
     id: 'int',
     restaurant_id: 'int',
-    total_queue: 'int',
-    currrent_number: 'int',
     open_time: 'date',
     close_time: 'date'
   }}
@@ -47,20 +45,27 @@ const restaurantCustomerQueue = {
     missed: 'bool'
   }}
 
-// export const migrateData = () => Realm.open({
-//   schema: [queue],
-//   migration: (oldRealm, newRealm) => {
-//     Realm.delete(oldRealm.objects('name'))
-//   }
-// })
-//   .then(() => {
-//     resolve()
-//   })
-//   .catch(err => console.error(err))
+export const migrateData = () => Realm.open({
+  schema: [restaurants, customers, queue, restaurantCustomerQueue],
+  schemaVersion: 1,
+  migration: (oldRealm, newRealm) => {
+    // if (oldRealm.schemaVersion < 1) {
+    //   const oldObject = oldRealm.objects('queue')
+    // const newObject = newRealm.objects('queue')
+    // for (let i = 0; i < oldObject.length; i++) {
+    //   oldObject[i].total_queue
+    // }
+  }
+})
+  .then(realm => {
+    const queue = realm.objects('queue')
+    realm.delete(queue.total_queue && queue.current_number)
+  })
+  .catch(err => console.error(err))
 
 export const databaseOption = {
   schema: [restaurants, customers, queue, restaurantCustomerQueue],
-  schemaVersion: 1
+  schemaVersion: 2
 }
 
 export const createData = () => Realm.open(databaseOption)

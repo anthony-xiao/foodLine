@@ -4,6 +4,7 @@ import {Text, View, TouchableOpacity} from 'react-native'
 import styles from '../styles'
 import {getCurrentQueueNumber} from '../actions/restaurant/currentQueueNum'
 import {getTotalInQueueNumber} from '../actions/restaurant/totalInQueue'
+import {createData} from '../db/util'
 
 class Restaurant extends React.Component {
   constructor (props) {
@@ -14,6 +15,7 @@ class Restaurant extends React.Component {
     }
   }
   componentDidMount () {
+    createData()
     this.props.dispatch(getCurrentQueueNumber(1))
     this.props.dispatch(getTotalInQueueNumber(1))
   }
@@ -24,7 +26,10 @@ class Restaurant extends React.Component {
         <Text>Current Number: {this.props.currentQueueNum}</Text>
         <Text>Total in Queue: {this.props.totalInQueue}</Text>
         <TouchableOpacity>
-          <Text>Next Number</Text>
+          <Text>Seated</Text>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Text>Missed</Text>
         </TouchableOpacity>
       </View>
     )

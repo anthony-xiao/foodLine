@@ -11,13 +11,14 @@ class Restaurant extends React.Component {
     super(props)
     this.state = {
       currentNum: 0,
-      totalNum: 0
+      totalNum: 0,
+      restaurantId: 1
     }
     this.addCustomer = this.addCustomer.bind(this)
   }
   componentDidMount () {
-    this.props.dispatch(getCurrentQueueNumber(1))
-    this.props.dispatch(getTotalInQueueNumber(1))
+    this.props.dispatch(getCurrentQueueNumber(this.state.restaurantId))
+    this.props.dispatch(getTotalInQueueNumber(this.state.restaurantId))
   }
 
   addCustomer () {

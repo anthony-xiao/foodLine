@@ -4,7 +4,7 @@ import {Text, View, TouchableOpacity} from 'react-native'
 import styles from '../styles'
 import {getCurrentQueueNumber} from '../actions/restaurant/currentQueueNum'
 import {getTotalInQueueNumber} from '../actions/restaurant/totalInQueue'
-import {createData} from '../db/util'
+import {addRestaurantCustomerQueue} from '../db/restaurant'
 
 class Restaurant extends React.Component {
   constructor (props) {
@@ -13,11 +13,20 @@ class Restaurant extends React.Component {
       currentNum: 0,
       totalNum: 0
     }
+    this.addCustomer = this.addCustomer.bind(this)
   }
   componentDidMount () {
-    createData()
     this.props.dispatch(getCurrentQueueNumber(1))
     this.props.dispatch(getTotalInQueueNumber(1))
+  }
+
+  addCustomer () {
+    const newCustomer = {
+      queue_id: 1,
+      customer_id: 1,
+      queue_number: 2
+    }
+    addRestaurantCustomerQueue(newCustomer)
   }
 
   render () {
@@ -30,6 +39,9 @@ class Restaurant extends React.Component {
         </TouchableOpacity>
         <TouchableOpacity>
           <Text>Missed</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={this.addCustomer}>
+          <Text>Add Customer</Text>
         </TouchableOpacity>
       </View>
     )

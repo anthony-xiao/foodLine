@@ -34,9 +34,13 @@ export const totalQueue = id => Realm.open(databaseOption)
 
 export const addRestaurantCustomerQueue = newCustomer => Realm.open(databaseOption)
   .then(realm => {
+    const allId = realm.objects('restaurant_customer_queue').map(waitingCustomer => {
+      return waitingCustomer.id
+    })
+    const maxId = Math.max(...allId) + 1
+    console.log(maxId)
     realm.write(() => {
-      realm.create()
+      realm.create('restaurant_customer_queue', {id: maxId, ...newCustomer})
     }
-
     )
   })

@@ -41,8 +41,8 @@ const restaurantCustomerQueue = {
     queue_id: 'int',
     customer_id: 'int',
     queue_number: 'int',
-    dinning: 'bool',
-    missed: 'bool'
+    dinning: {type: 'bool', default: false},
+    missed: {type: 'bool', default: false}
   }}
 
 export const migrateData = () => Realm.open({

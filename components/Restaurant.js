@@ -21,6 +21,19 @@ class Restaurant extends React.Component {
     this.props.dispatch(getTotalInQueueNumber(this.state.restaurantId))
   }
 
+  componentDidUpdate (prevProps) {
+    if (this.props.totalInQueue !== prevProps.totalInQueue) {
+      this.setState({
+        totalNum: this.props.totalInQueue
+      })
+    }
+    if (this.props.currentQueueNum !== prevProps.currentQueueNum) {
+      this.setState({
+        currentNum: this.props.currentQueueNum
+      })
+    }
+  }
+
   addCustomer () {
     const newCustomer = {
       queue_id: 6,
@@ -32,8 +45,8 @@ class Restaurant extends React.Component {
   render () {
     return (
       <View style={styles.container}>
-        <Text>Current Number: {this.props.currentQueueNum}</Text>
-        <Text>Total in Queue: {this.props.totalInQueue}</Text>
+        <Text>Current Number: {this.state.currentNum}</Text>
+        <Text>Total in Queue: {this.state.totalNum}</Text>
         <TouchableOpacity>
           <Text>Seated</Text>
         </TouchableOpacity>

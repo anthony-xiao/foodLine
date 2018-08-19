@@ -4,7 +4,7 @@ import {Text, View, TouchableOpacity} from 'react-native'
 import styles from '../styles'
 import {getCurrentQueueNumber} from '../actions/restaurant/currentQueueNum'
 import {getTotalInQueueNumber} from '../actions/restaurant/totalInQueue'
-import {addRestaurantCustomerQueue} from '../db/restaurant'
+import {addCustomer} from '../actions/restaurant/addCustomer'
 
 class Restaurant extends React.Component {
   constructor (props) {
@@ -39,7 +39,7 @@ class Restaurant extends React.Component {
       queue_id: 6,
       customer_id: 1
     }
-    addRestaurantCustomerQueue(this.state.restaurantId, newCustomer)
+    this.props.dispatch(addCustomer(this.state.restaurantId, newCustomer))
   }
 
   render () {

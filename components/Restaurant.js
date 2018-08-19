@@ -5,6 +5,7 @@ import styles from '../styles'
 import {getCurrentQueueNumber} from '../actions/restaurant/currentQueueNum'
 import {getTotalInQueueNumber} from '../actions/restaurant/totalInQueue'
 import {addCustomer} from '../actions/restaurant/addCustomer'
+import {updateCustomer} from '../actions/restaurant/updateCustomerQueueStatus'
 
 class Restaurant extends React.Component {
   constructor (props) {
@@ -15,6 +16,8 @@ class Restaurant extends React.Component {
       restaurantId: 1
     }
     this.addCustomer = this.addCustomer.bind(this)
+    this.seatCustomer = this.seatCustomer.bind(this)
+    this.missedCustomer = this.missedCustomer.bind(this)
   }
   componentDidMount () {
     this.props.dispatch(getCurrentQueueNumber(this.state.restaurantId))
@@ -42,15 +45,23 @@ class Restaurant extends React.Component {
     this.props.dispatch(addCustomer(this.state.restaurantId, newCustomer))
   }
 
+  seatCustomer () {
+    this.props.dispatch(updateCustomer(this.state.restaurantId, this.state.currentNum, 'seated'))
+  }
+
+  missedCustomer () {
+    this.props.dispatch(updateCustomer(this.state.restaurantId, this.state.currentNum, 'missed'))
+  }
+
   render () {
     return (
       <View style={styles.container}>
         <Text>Current Number: {this.state.currentNum}</Text>
         <Text>Total in Queue: {this.state.totalNum}</Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={this.seatCustomer}>
           <Text>Seated</Text>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={this.missedCustomer}>
           <Text>Missed</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={this.addCustomer}>

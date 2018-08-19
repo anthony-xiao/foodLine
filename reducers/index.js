@@ -1,6 +1,8 @@
 import {combineReducers} from 'redux'
-import getMyNumber from './getMyNumber'
+import currentQueueNum from './restaurant/currentQueueNum'
+import totalInQueue from './restaurant/totalInQueue'
 
 export default combineReducers({
-  getMyNumber
+  currentQueueNum,
+  totalInQueue
 })

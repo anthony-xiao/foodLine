@@ -12,10 +12,19 @@ export const currentQueue = id => Realm.open(databaseOption)
     })
     const maxId = Math.max(...restaurantQueueIds)
     const currentQue = realm.objects('restaurant_customer_queue').filtered(`dinning == false && missed == false && queue_id == ${maxId}`)
-    const queueNums = currentQue.map(que => {
-      return que.queue_number
-    })
-    return Math.min(...queueNums)
+
+    if (currentQue <= 0) {
+      const nonInLine = realm.objects('restaurant_customer_queue').filtered(` queue_id == ${maxId}`)
+      const queueNums = nonInLine.map(que => {
+        return que.queue_number
+      })
+      return Math.max(...queueNums)
+    } else {
+      const queueNums = currentQue.map(que => {
+        return que.queue_number
+      })
+      return Math.min(...queueNums)
+    }
   })
   .catch(err => console.error(err))
 

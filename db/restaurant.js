@@ -78,10 +78,12 @@ export const nextCustomer = (id, currentNumber, status) => Realm.open(databaseOp
     })
     const customerQueueId = customerQueue.id
     realm.write(() => {
-      if (status === 'missed') {
-        realm.create('restaurant_customer_queue', {id: customerQueueId, missed: true}, true)
-      } else {
-        realm.create('restaurant_customer_queue', {id: customerQueueId, dinning: true}, true)
+      if (customerQueue.dinning === false && customerQueue.missed === false) {
+        if (status === 'missed') {
+          realm.create('restaurant_customer_queue', {id: customerQueueId, missed: true}, true)
+        } else {
+          realm.create('restaurant_customer_queue', {id: customerQueueId, dinning: true}, true)
+        }
       }
     }
     )

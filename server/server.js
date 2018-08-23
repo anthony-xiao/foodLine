@@ -16,3 +16,11 @@ passport.use(new GoogleStrategy(google, async (accessToken, refreshToken, profil
 passport.serializeUser((user, done) => done(null, user))
 passport.deserializeUser((user, done) => done(null, user))
 
+const app = express()
+
+app.use(passport.initialize)
+app.use(passport.session)
+
+app.get('/auth/google', passport.authenticate(google, {scope: ['profile']}))
+
+app.get('/auth/google/callback', passport)

@@ -23,4 +23,5 @@ app.use(passport.session)
 
 app.get('/auth/google', passport.authenticate(google, {scope: ['profile']}))
 
-app.get('/auth/google/callback', passport)
+app.get('/auth/google/callback', passport.authenticate('google', {failureRedirect: '/auth/google'}),
+  (req, res) => res.redirect('OAuthLogin://login?user=' + JSON.stringify(req.user)))

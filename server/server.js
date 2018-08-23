@@ -11,5 +11,8 @@ const transformGoogleProfile = (profile) => ({
 })
 
 passport.use(new GoogleStrategy(google, async (accessToken, refreshToken, profile, done) => done(null, transformGoogleProfile(profile._json))
-
 ))
+
+passport.serializeUser((user, done) => done(null, user))
+passport.deserializeUser((user, done) => done(null, user))
+

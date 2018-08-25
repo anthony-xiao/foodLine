@@ -20,6 +20,8 @@
     "passport-google-oauth20": "^1.0.0",
     "react": "16.4.1",
     "react-native": "0.56.0",
+    "react-native-safari-view": "^2.1.0",
+    "react-native-vector-icons": "^5.0.0",
     "react-redux": "^5.0.7",
     "realm": "^2.14.2",
     "redux": "^4.0.0",

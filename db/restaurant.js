@@ -18,7 +18,7 @@ export const currentQueue = id => Realm.open(databaseOption)
       const queueNums = nonInLine.map(que => {
         return que.queue_number
       })
-      return Math.max(...queueNums)
+      return Math.max(...queueNums) + 1
     } else {
       const queueNums = currentQue.map(que => {
         return que.queue_number
@@ -58,7 +58,6 @@ export const addRestaurantCustomerQueue = (id, newCustomer) => Realm.open(databa
       return line.queue_number
     })
     const nextNumber = Math.max(...queueNumbers) + 1
-    console.log(nextNumber)
     realm.write(() => {
       realm.create('restaurant_customer_queue', {id: newId, queue_number: nextNumber, ...newCustomer})
     }

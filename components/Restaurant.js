@@ -15,7 +15,7 @@ class Restaurant extends React.Component {
       totalNum: 0,
       restaurantId: 1
     }
-    this.addCustomer = this.addCustomer.bind(this)
+    this.addNewCustomer = this.addNewCustomer.bind(this)
     this.seatCustomer = this.seatCustomer.bind(this)
     this.missedCustomer = this.missedCustomer.bind(this)
   }
@@ -37,7 +37,7 @@ class Restaurant extends React.Component {
     }
   }
 
-  addCustomer () {
+  addNewCustomer () {
     const newCustomer = {
       queue_id: 6,
       customer_id: 1
@@ -64,7 +64,7 @@ class Restaurant extends React.Component {
         <TouchableOpacity onPress={this.missedCustomer}>
           <Text>Missed</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={this.addCustomer}>
+        <TouchableOpacity onPress={this.addNewCustomer}>
           <Text>Add Customer</Text>
         </TouchableOpacity>
       </View>

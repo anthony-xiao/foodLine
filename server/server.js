@@ -1,9 +1,9 @@
-import express from 'express'
-import passport from 'passport'
-// import FacebookStrategy from 'passport-facebook'
-import GoogleStrategy from 'passport-google-oauth20'
+const express = require('express')
+const passport = require('passport')
+// const FacebookStrategy = require('passport-facebook')
+const GoogleStrategy = require('passport-google-oauth20')
 // Import Facebook and Google OAuth apps configs
-import {google} from './config'
+const {google} = require('./auth/config')
 
 const transformGoogleProfile = (profile) => ({
   name: profile.displayName,
@@ -25,3 +25,5 @@ app.get('/auth/google', passport.authenticate(google, {scope: ['profile']}))
 
 app.get('/auth/google/callback', passport.authenticate('google', {failureRedirect: '/auth/google'}),
   (req, res) => res.redirect('OAuthLogin://login?user=' + JSON.stringify(req.user)))
+
+module.exports = app
